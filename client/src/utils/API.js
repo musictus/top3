@@ -3,13 +3,13 @@ import axios from "axios";
 export default {
   // Gets all food
   getFoods: function() {
-    return axios.get("/api/foods");
+    return axios.get("/api/food");
   },
   // Gets the book with the given id
   getFoodById: function(id) {
     return axios.get("/api/food/" + id);
   },
-  getFood: function(name) {
+  getFoodByName: function(name) {
     return axios.get("/api/food/" + name);
   },
   // Deletes the book with the given id

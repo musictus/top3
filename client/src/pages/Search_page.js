@@ -6,7 +6,10 @@ import API from "../utils/API";
 class Search_page extends Component {
 
   state = {
-    food: ""
+    search: "",
+    results: [],
+    food: "",
+    autoComplete: {}
   };
 
   // handleInputChange = event => {
@@ -21,11 +24,26 @@ class Search_page extends Component {
   }
 
   loadFood = () => {
+    let searchState = {};
     API.getFoods(this.props.match.params.id)
-    .then(res => {console.log(res.data); return this.setState({ food: res.data })})
+    .then(res => {
+      const apiResults = res.data;
+      console.log(apiResults)
+      apiResults.map( object => {
+        let foodName = object.food_name.toString()
+        searchState = {};
+        searchState[foodName] = null;
+        // console.log(searchState)
+      })
+      return this.setState({ autoComplete: searchState })
+    })
+    // iterate over the data, map func, forEach, create new object, object.assign, nameOfObject[Google]
     .catch(err => console.log(err));
   }
 
+  searchFood = () => {
+    return this.state.autoComplete
+  };
 
   render() {
 
@@ -38,7 +56,9 @@ class Search_page extends Component {
 
       <br></br>
       <Col s={5} className='search-page'></Col>
-        <Search></Search>
+        <Search
+          searchFood={this.searchFood}
+        />
       <Col s={5} className='search-page'></Col>
     </Row>
     

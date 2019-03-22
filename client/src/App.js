@@ -12,9 +12,9 @@ function App() {
         {/* <Navbar /> */}
         {/* <Wrapper> */}
           <Route exact path="/" component={Search_page} />
-          <Route exact path="/food" component={Food} />
           <Route exact path="/search" component={Search_page} />
-          <Route exact path="/food/:name" component={Food} />
+          <Route exact path="/:name" component={Food} />
+          <Route exact path="/api/food" component={Food} />
         {/* </Wrapper> */}
         {/* <Footer /> */}
       </div>
