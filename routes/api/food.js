@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const foodController = require("../../controllers/foodController");
 
-var yelp = require('yelp-fusion');
-var yelpClient = yelp.client(process.env.YKEY);
-var googleplacesapi = require('googleplacesapi');
+// var yelp = require('yelp-fusion');
+// var yelpClient = yelp.client(process.env.YKEY);
+// var googleplacesapi = require('googleplacesapi');
 
 // Matches with "/api/food"
 router.route("/")

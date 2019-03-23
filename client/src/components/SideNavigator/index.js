@@ -1,14 +1,18 @@
 import React from "react";
 import {SideNav, SideNavItem, Button} from 'react-materialize'
+import "./style.css";
 
 
-
-function SideNavigator() {
+function SideNavigator(props) {
     return (
 
         <SideNav
             trigger={
-                <Button floating large className='orange' waves='light' icon='list'></Button>
+                <Button floating large className='fixed-action-btn orange' waves='light' icon='list'>
+                    <a class="btn-floating btn-large #fb8c00 orange darken-1">
+                    <i class="large material-icons">clear_all</i>
+                    </a>
+                </Button>
             }
             options={{ closeOnClick: true }}
             >
