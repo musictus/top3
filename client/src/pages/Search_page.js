@@ -12,13 +12,6 @@ class Search_page extends Component {
     autoCompleteData: {}
   };
 
-  // handleInputChange = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
-
   componentDidMount() {
     this.loadFood();
   }
@@ -39,15 +32,22 @@ class Search_page extends Component {
     .catch(err => console.log(err));
   }
 
-
   render() {
-    // console.log("TEST" , this.state.autoCompleteData)
+    
+    const h1Style = {
+      fontFamily: 'Fredericka the Great',
+      color: '#ff7043 deep-orange lighten-1',
+      right: 'auto',
+      bottom: 'auto',
+      marginLeft: '20%',
+      marginTop: '20%'
+    }
 
     return (
 
       <Row>
         <Col s={5} className='search-page-logo'></Col>
-          <h1 s={2}>Top3</h1>
+          <h1 s={2} style={h1Style}>top3</h1>
         <Col s={5} className='search-page-logo'></Col>
 
         <br></br>

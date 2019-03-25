@@ -10,6 +10,16 @@ router.route("/")
   .get(foodController.findAll)
 //   .post(foodController.create);
 
+
+
+// Matches with "/api/food/:food_name_short"
+router
+  .route("/:food_name_short")
+  .get(foodController.findByName)
+  // .put(foodController.update)
+  // .delete(foodController.remove);
+
+
 // Matches with "/api/food/:id"
 router
   .route("/:id")
@@ -17,12 +27,6 @@ router
   .put(foodController.update)
   .delete(foodController.remove);
 
-// Matches with "/api/food/:id"
-router
-  .route("/:name")
-  .get(foodController.findByName)
-  .put(foodController.update)
-  .delete(foodController.remove);
 
 
 

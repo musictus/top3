@@ -1,11 +1,14 @@
 import React from "react";
 import {Row, Autocomplete} from 'react-materialize'
+import "./style.css";
 
 function Search(props) {
    
   return (
+    
       <Row>
         <Autocomplete
+          s={3}
           title='Food Search'
           data={
             props.searchFood
@@ -19,13 +22,16 @@ function Search(props) {
           onAutocomplete={(value) => { 
             let newValue = value.replace(/\s/g, '').toLowerCase()
             window.location = `/${newValue}`
-            var sessionValue = value
+            let sessionValue = value
+            let sessionValueShort = newValue
             // sessionStorage.clear();
             sessionStorage.setItem("food_name", sessionValue);
+            sessionStorage.setItem("food_name_short", sessionValueShort);
             // window.location = `/food`
             // look into props.history.push
           }}
-        />
+        >
+        </Autocomplete>
       </Row>
   )
 

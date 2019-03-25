@@ -1,16 +1,44 @@
 import React from "react";
-import {Col, Card, CardTitle} from 'react-materialize'
+import {Row, Col, Card, CardTitle} from 'react-materialize'
+import { PromiseProvider } from "mongoose";
+import VoteCounter from "../components/VoteCounter";
 
 
-function FoodCard({children}) {
-   
+function FoodCard(props) {
+  
+  const fontStyle = {
+    fontFamily: 'Fredericka the Great'
+  }
+  const h3Style = {
+    fontFamily: 'Shadows Into Light',
+    marginLeft: '33px',
+    marginTop: '37px'
+  }
+
+
   return (
 
-    <Col m={7} s={12}>
-      <Card horizontal header={<CardTitle></CardTitle>}>
-          {children}
-      </Card>
-    </Col>
+    <Row>
+      <Col m={1} s={0}></Col>
+      <Col m={10} s={12}>
+
+        <Card key={props.key} horizontal header={<CardTitle image=""></CardTitle>} actions={[<a href={props.yelpLink}>Restaurant Details</a>]}>
+            <Row>
+              <Col m={1}>
+                <h1 style={fontStyle}>1{props.vote_ranking}</h1>
+              </Col>
+              <Col m={9}>
+                <h3 style={h3Style}>Restaurant Name:{props.restaurant_name}</h3>
+              </Col>
+              <Col m={1}>
+              <VoteCounter></VoteCounter>
+              </Col>
+            </Row>
+        </Card>
+
+      <Col m={1} s={0}></Col>
+      </Col>
+    </Row>
 
   )
 

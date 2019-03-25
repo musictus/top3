@@ -4,20 +4,20 @@ const db = require("../models");
 module.exports = {
   findAll: function(req, res) {
     db.Food
-      .find()
-      .sort({ date: -1 })
+      .find({})
+      // .sort({ date: -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findByName: function(req, res) {
+    db.Food
+      .findOne({ food_name_short : req.params.food_name_short })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
     db.Food
       .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  findByName: function(req, res) {
-    db.Food
-      .findById(req.params.name)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

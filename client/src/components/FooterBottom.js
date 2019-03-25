@@ -6,22 +6,20 @@ function FooterBottom() {
     return (
 
         <Footer
-            copyrights="&copy 2015 Copyright Text"
+            copyrights="© 2019 Copyright Top3"
             moreLinks={
-                <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
+                <a className="grey-text text-lighten-4 right" href="#!">Sign Out</a>
             }
             links={
                 <ul>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                <li><a className="grey-text text-lighten-3" href="#!">Our Story</a></li>
+                <li><a className="grey-text text-lighten-3" href="#!">Contact Us</a></li>
                 </ul>
             }
-            className='example'
+            className='#ff7043 deep-orange lighten-1'
         >
-            <h5 className="white-text">Footer Content</h5>
-            <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            <h5 className="white-text">Top3</h5>
+            <p className="grey-text text-lighten-4">Search our Top3 choice by Food</p>
         </Footer>
 
     )

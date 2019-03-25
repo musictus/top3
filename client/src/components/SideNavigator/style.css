@@ -1,6 +1,8 @@
-.fixed-action-btn {
-    right: auto;
-    bottom: auto;
-    margin-left: 3%;
-    margin-top: 3%;
+#button {
+    /* right: auto;
+    bottom: auto; */
+    left: 25px;
+    
+    /* margin-left: 20%; */
+    margin-top: 20%;
 }

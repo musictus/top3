@@ -13,8 +13,8 @@ function App() {
         {/* <Wrapper> */}
           <Route exact path="/" component={Search_page} />
           <Route exact path="/search" component={Search_page} />
-          <Route exact path="/:name" component={Food} />
-          <Route exact path="/api/food" component={Food} />
+          <Route exact path="/:food_name_short" component={Food} />
+          {/* <Route exact path="/api/food" component={Food} /> */}
         {/* </Wrapper> */}
         {/* <Footer /> */}
       </div>

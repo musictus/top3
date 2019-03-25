@@ -5,13 +5,14 @@ export default {
   getFoods: function() {
     return axios.get("/api/food");
   },
+  getFoodByName: function(name) {
+    return axios.get("/api/food/" + name);
+  },
   // Gets the book with the given id
   getFoodById: function(id) {
     return axios.get("/api/food/" + id);
   },
-  getFoodByName: function(name) {
-    return axios.get("/api/food/" + name);
-  },
+
   // Deletes the book with the given id
   deleteBook: function(id) {
     return axios.delete("/api/food/" + id);

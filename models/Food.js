@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var FoodSchema = new Schema({
     food_name: String,
+    food_name_short: String,
     food_country: [{ type: String }], 
     restaurants: [{
         
