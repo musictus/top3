@@ -16,7 +16,7 @@ router.route("/")
 router
   .route("/:food_name_short")
   .get(foodController.findByName)
-  // .put(foodController.update)
+  .put(foodController.update)
   // .delete(foodController.remove);
 
 

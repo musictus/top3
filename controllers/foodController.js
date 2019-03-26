@@ -12,6 +12,13 @@ module.exports = {
   findByName: function(req, res) {
     db.Food
       .findOne({ food_name_short : req.params.food_name_short })
+      // .sort({ votes: 1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  updateVote: function(req, res) {
+    db.Food
+      .findOneAndUpdate({ food_name_short : req.params.food_name_short }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

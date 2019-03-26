@@ -10,9 +10,12 @@ function FoodCard(props) {
     fontFamily: 'Fredericka the Great'
   }
   const h3Style = {
-    fontFamily: 'Shadows Into Light',
+    fontFamily: 'Quicksand',
     marginLeft: '33px',
     marginTop: '37px'
+  }
+  const aStyle = {
+    fontFamily: 'Quicksand'
   }
 
 
@@ -22,15 +25,15 @@ function FoodCard(props) {
       <Col m={1} s={0}></Col>
       <Col m={10} s={12}>
 
-        <Card key={props.key} horizontal header={<CardTitle image=""></CardTitle>} actions={[<a href={props.yelpLink}>Restaurant Details</a>]}>
+        <Card key={props.key} horizontal header={<CardTitle image=""></CardTitle>} actions={[<a style={aStyle} href={props.yelpLink} target="_blank">Restaurant Details</a>]}>
             <Row>
-              <Col m={1}>
+              <Col m={1} s={1}>
                 <h1 style={fontStyle}>1{props.vote_ranking}</h1>
               </Col>
-              <Col m={9}>
-                <h3 style={h3Style}>Restaurant Name:{props.restaurant_name}</h3>
+              <Col m={8} s={11}>
+                <h3 style={h3Style}>{props.restaurant_name}</h3>
               </Col>
-              <Col m={1}>
+              <Col m={2} s={12}>
               <VoteCounter></VoteCounter>
               </Col>
             </Row>

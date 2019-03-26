@@ -19,23 +19,44 @@ class VoteCounter extends Component {
   render() {
 
     const counterStyle = {
-        width: '120px',
-        backgroundColor: 'red',
+        width: '190px',
+        backgroundColor: '#ff7043',
         marginRight: '10px',
         marginTop: '37px'
     }
     const textStyle = {
-
+        fontFamily: 'Quicksand',
+        fontSize: '15px'
     }
 
     return (
 
         <div>
-            <Button type="submit" waves="light" onClick={this.handleIncrement} style={counterStyle}>
-            <div className="click-count">Vote: {this.state.count}</div>
-            <Icon>add_cirlcle thumb_up"</Icon>
+          <Button
+            onClick={this.handleIncrement}
+            node="a"
+            waves="light"
+            small
+            style={counterStyle}
+            >
+            Vote: {this.state.count}
+            <Icon left>
+            thumb_up
+            </Icon>
+          </Button>
+
+            {/* <Button
+              type="submit" 
+              waves="light" 
+              onClick={this.handleIncrement} 
+              style={counterStyle} 
+              icon="add thumb_up"
+            >
             </Button>
+            <div style={textStyle}>Counter {this.state.count}</div> */}
         </div>
+
+
 
     );
   }

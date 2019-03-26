@@ -12,6 +12,7 @@ class Food extends Component {
 
   state = {
     food: {},
+    restaurants: [],
     value_short: ""
   };
   
@@ -19,7 +20,7 @@ class Food extends Component {
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
     // this.loadFoods();
-    this.loadFoodByName();
+    this.getRestaurants();
   }
 
   loadFoods = () => {
@@ -28,22 +29,29 @@ class Food extends Component {
       .catch(err => console.log(err));
   }
 
-  loadFoodByName = () => {
-      let shortValue;
+  getRestaurants = () => {
 
     API.getFoodByName(this.props.match.params.food_name_short)
       .then(res => {
+
+        let restaurantArray = [];
         let apiResults = res.data;
-        console.log(apiResults)
-        for (let i = 0; 0 < apiResults.length; i++) {
-          if (apiResults[i].food_name_short === this.props.match.params.food_name_short) {
-            shortValue = apiResults[i].food_name_short;
-          }
-          return this.setState({ value_short: shortValue })
+        let restaurantResults = apiResults.restaurants;
+        console.log("initial restaurants:", restaurantResults)
+
+        // this loop goes through the restaurants array, grabs the editor picks, and sort them by
+        restaurantResults.forEach( restaurants => {
+          if (restaurants.editor_pick === true) {
+            restaurantArray.push(restaurants);
+            restaurantArray.sort((a, b) => {return b-a})
         }
+        return this.setState({ restaurants: restaurantArray })
+        // console.log("TEST ARRAY:", restaurantArray)
+        })
       })
       .catch(err => console.log(err));
-  }
+  
+    }
 
 //   load = () => {
 //     let shortValue;
@@ -63,7 +71,8 @@ class Food extends Component {
 
 
   render() {
-    console.log("param:", this.props.match.params.food_name_short)
+    // console.log("param:", this.props.match.params.food_name_short)
+    console.log("TEST Array:", this.state.restaurants)
     // console.log("VLUEEEE:", this.state.food)
 
     const h1Style = {
@@ -87,7 +96,21 @@ class Food extends Component {
               </Col>
             </Row>
             <Row>
-              <FoodCard></FoodCard>
+              {this.state.restaurants
+                .sort(
+                  (a, b) => {
+                    return b.votes - a.votes;
+                  }
+                )
+                .map((data, index) => (
+                  <FoodCard
+                    key={index}
+                    yelpLink={data.yelplink}
+                    restaurant_name={data.restaurant_name}
+                    />
+                )
+                )}
+                {/* <FoodCard></FoodCard> */}
             </Row>
             <FooterBottom></FooterBottom>
         </div>
