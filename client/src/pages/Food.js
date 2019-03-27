@@ -11,23 +11,23 @@ const savedValueShort = sessionStorage.getItem("food_name_short");
 class Food extends Component {
 
   state = {
-    food: {},
-    restaurants: [],
-    value_short: ""
+    food: "",
+    food_short: "",
+    restaurants: []
+    // value_short: ""
   };
   
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
-    // this.loadFoods();
     this.getRestaurants();
   }
 
-  loadFoods = () => {
-    API.getFoods(this.props.match.params.food_name_short)
-      .then(res => this.setState({ food: res.data }))
-      .catch(err => console.log(err));
-  }
+  // loadFoods = () => {
+  //   API.getFoods(this.props.match.params.food_name_short)
+  //     .then(res => this.setState({ food: res.data }))
+  //     .catch(err => console.log(err));
+  // }
 
   getRestaurants = () => {
 
@@ -45,34 +45,53 @@ class Food extends Component {
             restaurantArray.push(restaurants);
             restaurantArray.sort((a, b) => {return b-a})
         }
-        return this.setState({ restaurants: restaurantArray })
+          return this.setState({ 
+            restaurants: restaurantArray,
+            food: apiResults.food_name,
+            food_short: apiResults.food_name_short
+          })
         // console.log("TEST ARRAY:", restaurantArray)
         })
-      })
-      .catch(err => console.log(err));
+      }).catch(err => console.log(err));
   
     }
 
-//   load = () => {
-//     let shortValue;
-//   API.getFoodByName(this.props.match.params.food_name_short)
-//     .then(res => {
-//       let apiResults = res.data;
-//       console.log(res.data)
-//       for (let i = 0; 0 < apiResults.length; i++) {
-//         if (apiResults[i].food_name_short === savedValueShort) {
-//           shortValue = apiResults[i].food_name_short;
-//         }
-//         return this.setState({ value_short: shortValue })
-//       }
-//     })
-//     .catch(err => console.log(err));
-// }
+  updateVotesFunctionFe = (yelpid) => {
 
+    API.updateVote(this.state.food_short, yelpid)
+      .then(res => {
+        console.log("res", res)
+        if (res.status === 200) {
+        window.location = `${this.state.food_short}`
+        }
+      })
+
+  }
+      // handleIncrement increments this.state.count by 1
+  handleIncrement = (e) => {
+    // console.log("E", e)
+    // console.log("etarget", e.target.dataset.votes)
+    // console.log("etargetyelpid", e.target.dataset.yelpid)
+    // console.log("erestaurant", this.state.restaurants)
+    const restaurantToUpdate = this.state.restaurants.map(restaurant => { 
+      if (e.target.dataset.yelpid === restaurant.yelpid) {
+        // restaurant.votes = parseInt(e.target.dataset.votes) + 1
+        this.updateVotesFunctionFe(restaurant.yelpid)
+      }
+      return restaurant
+    })
+    this.setState(
+      {
+        restaurants: restaurantToUpdate
+      }
+    )
+  };
+  
 
   render() {
     // console.log("param:", this.props.match.params.food_name_short)
     console.log("TEST Array:", this.state.restaurants)
+    console.log("FOOD", this.state.food)
     // console.log("VLUEEEE:", this.state.food)
 
     const h1Style = {
@@ -83,8 +102,6 @@ class Food extends Component {
       marginTop: '30%'
     }
 
-    // console.log("TEST: " + savedValue)
-
     return (
        <div>
             <Row>
@@ -92,7 +109,7 @@ class Food extends Component {
                 <SideNavigator></SideNavigator>
               </Col>
               <Col s={1} className='grid-example'>
-                <h1 style={h1Style}>{this.props.match.params.food_name_short}</h1>
+                <h1 style={h1Style}>{this.state.food}</h1>
               </Col>
             </Row>
             <Row>
@@ -106,7 +123,10 @@ class Food extends Component {
                   <FoodCard
                     key={index}
                     yelpLink={data.yelplink}
+                    yelpid={data.yelpid}
                     restaurant_name={data.restaurant_name}
+                    votes={data.votes}
+                    handleIncrement={this.handleIncrement}
                     />
                 )
                 )}

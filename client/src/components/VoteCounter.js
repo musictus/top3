@@ -7,15 +7,12 @@ class VoteCounter extends Component {
   state = {
     count: 0
   };
-
-  // handleIncrement increments this.state.count by 1
-  handleIncrement = () => {
-    // We always use the setState method to update a component's state
-    this.setState({ count: this.state.count + 1 });
-  };
-
+// componentDidUpdate(prevProps, prevState){
+//   console.log("prevProps", prevProps.votes)
+//   console.log("thisprops", this.props.votes)
   
-  // The render method returns the JSX that should be rendered
+// }
+
   render() {
 
     const counterStyle = {
@@ -33,13 +30,15 @@ class VoteCounter extends Component {
 
         <div>
           <Button
-            onClick={this.handleIncrement}
+            onClick={this.props.handleIncrement}
+            data-votes={this.props.votes}
+            data-yelpid={this.props.yelpid}
             node="a"
             waves="light"
             small
             style={counterStyle}
             >
-            Vote: {this.state.count}
+            Vote: {this.props.votes}
             <Icon left>
             thumb_up
             </Icon>

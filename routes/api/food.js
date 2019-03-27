@@ -16,9 +16,12 @@ router.route("/")
 router
   .route("/:food_name_short")
   .get(foodController.findByName)
-  .put(foodController.update)
+  // .put(foodController.updateVote)
   // .delete(foodController.remove);
 
+  router
+  .route("/:food_name_short/:yelpid")
+  .put(foodController.updateVote)
 
 // Matches with "/api/food/:id"
 router

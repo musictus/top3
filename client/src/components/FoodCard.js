@@ -18,7 +18,7 @@ function FoodCard(props) {
     fontFamily: 'Quicksand'
   }
 
-
+  console.log("propsinCard", props.votes)
   return (
 
     <Row>
@@ -34,7 +34,12 @@ function FoodCard(props) {
                 <h3 style={h3Style}>{props.restaurant_name}</h3>
               </Col>
               <Col m={2} s={12}>
-              <VoteCounter></VoteCounter>
+                <VoteCounter
+                votes={props.votes}
+                yelpid={props.yelpid}
+                handleIncrement={props.handleIncrement}
+                >
+                </VoteCounter>
               </Col>
             </Row>
         </Card>

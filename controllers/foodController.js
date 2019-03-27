@@ -18,7 +18,8 @@ module.exports = {
   },
   updateVote: function(req, res) {
     db.Food
-      .findOneAndUpdate({ food_name_short : req.params.food_name_short }, req.body)
+      // .findOneAndUpdate({ food_name_short : req.params.food_name_short }, { votes : votes + 1 })
+      .findOneAndUpdate({ "food_name_short" : req.params.food_name_short, "restaurants.yelpid" : req.params.yelpid }, { $inc : { "restaurants.$.votes" : 1 } })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
