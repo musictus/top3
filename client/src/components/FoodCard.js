@@ -1,8 +1,7 @@
 import React from "react";
 import {Row, Col, Card, CardTitle} from 'react-materialize'
-import { PromiseProvider } from "mongoose";
 import VoteCounter from "../components/VoteCounter";
-
+// import { PromiseProvider } from "mongoose";
 
 function FoodCard(props) {
   
@@ -28,7 +27,7 @@ function FoodCard(props) {
         <Card key={props.key} horizontal header={<CardTitle image=""></CardTitle>} actions={[<a style={aStyle} href={props.yelpLink} target="_blank">Restaurant Details</a>]}>
             <Row>
               <Col m={1} s={1}>
-                <h1 style={fontStyle}>1{props.vote_ranking}</h1>
+                <h1 style={fontStyle}>{props.index + 1}</h1>
               </Col>
               <Col m={8} s={11}>
                 <h3 style={h3Style}>{props.restaurant_name}</h3>

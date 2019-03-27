@@ -4,16 +4,18 @@ import API from "../utils/API";
 import SideNavigator from "../components/SideNavigator";
 import FoodCard from "../components/FoodCard";
 import FooterBottom from "../components/FooterBottom";
+import SearchOnPage from "../components/SearchOnPage";
 
-const savedValue = sessionStorage.getItem("food_name");
-const savedValueShort = sessionStorage.getItem("food_name_short");
+// const savedValue = sessionStorage.getItem("food_name");
+// const savedValueShort = sessionStorage.getItem("food_name_short");
 
 class Food extends Component {
 
   state = {
+    restaurants: [],
     food: "",
     food_short: "",
-    restaurants: []
+    votes: 0
     // value_short: ""
   };
   
@@ -56,14 +58,15 @@ class Food extends Component {
   
     }
 
-  updateVotesFunctionFe = (yelpid) => {
+  updateVotesFunction = (yelpid) => {
 
     API.updateVote(this.state.food_short, yelpid)
       .then(res => {
         console.log("res", res)
-        if (res.status === 200) {
-        window.location = `${this.state.food_short}`
-        }
+        this.getRestaurants()
+        // if (res.status === 200) {
+        // window.location = `${this.state.food_short}`
+        // }
       })
 
   }
@@ -73,18 +76,17 @@ class Food extends Component {
     // console.log("etarget", e.target.dataset.votes)
     // console.log("etargetyelpid", e.target.dataset.yelpid)
     // console.log("erestaurant", this.state.restaurants)
-    const restaurantToUpdate = this.state.restaurants.map(restaurant => { 
-      if (e.target.dataset.yelpid === restaurant.yelpid) {
+    let restaurantToUpdate = this.state.restaurants.map(data => { 
+      if (e.target.dataset.yelpid === data.yelpid) {
         // restaurant.votes = parseInt(e.target.dataset.votes) + 1
-        this.updateVotesFunctionFe(restaurant.yelpid)
+        this.updateVotesFunction(data.yelpid)
       }
-      return restaurant
+      return data
     })
-    this.setState(
-      {
+    this.setState({
         restaurants: restaurantToUpdate
-      }
-    )
+    })
+    console.log("AFTER", this.state.restaurants)
   };
   
 
@@ -103,17 +105,22 @@ class Food extends Component {
     }
 
     return (
+
        <div>
             <Row>
               <Col s={2} className='grid-example'>
                 <SideNavigator></SideNavigator>
               </Col>
-              <Col s={1} className='grid-example'>
+              <Col s={6} className='grid-example'>
                 <h1 style={h1Style}>{this.state.food}</h1>
               </Col>
+              <Col s={4}>
+                <SearchOnPage></SearchOnPage>
+              </Col>
             </Row>
+
             <Row>
-              {this.state.restaurants
+              ({this.state.restaurants
                 .sort(
                   (a, b) => {
                     return b.votes - a.votes;
@@ -121,19 +128,20 @@ class Food extends Component {
                 )
                 .map((data, index) => (
                   <FoodCard
-                    key={index}
+                    index={index}
                     yelpLink={data.yelplink}
                     yelpid={data.yelpid}
                     restaurant_name={data.restaurant_name}
                     votes={data.votes}
                     handleIncrement={this.handleIncrement}
                     />
-                )
-                )}
-                {/* <FoodCard></FoodCard> */}
+                  )
+                )})
             </Row>
+
             <FooterBottom></FooterBottom>
         </div>
+
     );
   }
 }

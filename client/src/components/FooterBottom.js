@@ -19,7 +19,7 @@ function FooterBottom() {
             className='#ff7043 deep-orange lighten-1'
         >
             <h5 className="white-text">Top3</h5>
-            <p className="grey-text text-lighten-4">Search our Top3 choice by Food</p>
+            {/* <p className="grey-text text-lighten-4">Search our Top3 choice by Food</p> */}
         </Footer>
 
     )
