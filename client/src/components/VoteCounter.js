@@ -8,12 +8,12 @@ class VoteCounter extends Component {
     count: 0
   };
   
-componentDidUpdate(prevProps, prevState){
-  console.log("prevProps", prevProps.votes)
-  console.log("thisProps", this.props.votes)
-  console.log("thisState", this.props.votes)
+// componentDidUpdate(prevProps, prevState){
+//   console.log("prevProps", prevProps.votes)
+//   console.log("thisProps", this.props.votes)
+//   console.log("thisState", this.props.votes)
   
-}
+// }
 
   render() {
 

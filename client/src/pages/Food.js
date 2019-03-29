@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import {Row, Col} from "react-materialize"
+import {Row, Col, Button} from "react-materialize"
 import API from "../utils/API";
 import SideNavigator from "../components/SideNavigator";
 import FoodCard from "../components/FoodCard";
 import FooterBottom from "../components/FooterBottom";
 import SearchOnPage from "../components/SearchOnPage";
+import ModalForm from "../components/ModalForm";
 
 // const savedValue = sessionStorage.getItem("food_name");
 // const savedValueShort = sessionStorage.getItem("food_name_short");
@@ -14,15 +15,17 @@ class Food extends Component {
   state = {
     restaurants: [],
     food: "",
-    food_short: "",
-    votes: 0
+    food_short: ""
     // value_short: ""
   };
+
+  triggerModal = React.createRef();
   
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
     this.getRestaurants();
+    console.log("modaltrigger", this.triggerModal.current)
   }
 
   // loadFoods = () => {
@@ -100,27 +103,35 @@ class Food extends Component {
       fontFamily: 'Fredericka the Great',
       right: 'auto',
       bottom: 'auto',
-      marginLeft: '20%',
-      marginTop: '30%'
+      marginLeft: '3%',
+      marginTop: '5%'
+    }
+    const searchOnPageStyle = {
+      right: 'auto',
+      bottom: 'auto',
+      marginLeft: '0%',
+      marginTop: '7%'
     }
 
     return (
 
        <div>
             <Row>
-              <Col s={2} className='grid-example'>
+              <Col m={2} s={12} className='grid-example'>
                 <SideNavigator></SideNavigator>
               </Col>
-              <Col s={6} className='grid-example'>
+              <Col m={6} s={5} className='grid-example'>
                 <h1 style={h1Style}>{this.state.food}</h1>
               </Col>
-              <Col s={4}>
+              <Col m={4} s={7}>
+                <div style={searchOnPageStyle}>
                 <SearchOnPage></SearchOnPage>
+                </div>
               </Col>
             </Row>
 
             <Row>
-              ({this.state.restaurants
+              {this.state.restaurants
                 .sort(
                   (a, b) => {
                     return b.votes - a.votes;
@@ -136,9 +147,10 @@ class Food extends Component {
                     handleIncrement={this.handleIncrement}
                     />
                   )
-                )})
+                )}
             </Row>
-
+            <Button ref={this.triggerModal}></Button>
+            <ModalForm></ModalForm>
             <FooterBottom></FooterBottom>
         </div>
 

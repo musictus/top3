@@ -36,7 +36,7 @@ class SearchOnPage extends Component {
         
           <Row>
             <Autocomplete
-              s={3}
+              s={7}
               title='Search'
               data={
                 this.state.autoCompleteData
