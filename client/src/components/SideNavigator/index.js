@@ -20,7 +20,7 @@ function SideNavigator(props) {
             />
             <SideNavItem href='/' icon='search'>Search Food</SideNavItem>
             <SideNavItem divider />
-            <SideNavItem waves href='/contact' icon='fastfood'>Suggest Your Restaurant!</SideNavItem>
+            <SideNavItem waves icon='fastfood'>Suggest Your Restaurant!</SideNavItem>
             <SideNavItem divider />
             <SideNavItem href='/ourstory' icon='face'>Our Story</SideNavItem>
             <SideNavItem href='/ourstory' icon='mail_outline'>Contact Us</SideNavItem>

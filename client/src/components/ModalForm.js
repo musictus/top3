@@ -21,23 +21,16 @@ class ModalForm extends Component {
             // marginRight: '10px',
             margin: '10px'
         }
-    
+        console.log("TTTT", this.props.trigger)
         return (
             <Row>
                 <Col s={3}></Col>
                 <Col s={6} className="center-align">
-                <Modal header="Suggest Your Restaurant!">
-                
-                {/* <p icon="fastfood">Suggest Your Restaurant!</p> */}
+                <Modal header="Suggest Your Restaurant!" trigger={this.props.trigger()}>
+            
                     <Row>
-                    {/* <Input s={6} label="First Name" validate><Icon>account_circle</Icon></Input>
-                    <Input s={6} label="Telephone" validate type='tel'><Icon>phone</Icon></Input> */}
                         <Input s={12} icon="fastfood" label="Food Name" />
                         <SearchYelp></SearchYelp>
-                        
-                        {/* <Input s={12} icon="restaurant" label="Restaurant Name" /> */}
-                        {/* <Input type="password" label="password" s={12} /> */}
-                        {/* <Input type="email" label="Email" s={12} /> */}
                     </Row>
                 </Modal>
                 </Col>

@@ -19,13 +19,17 @@ class Food extends Component {
     // value_short: ""
   };
 
-  triggerModal = React.createRef();
+  // trigger = React.createRef();
   
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
     this.getRestaurants();
-    console.log("modaltrigger", this.triggerModal.current)
+    // console.log("modaltrigger", this.triggerModal.current)
+  }
+
+  modalTrigger = () => {
+    return <Button></Button>
   }
 
   // loadFoods = () => {
@@ -149,8 +153,7 @@ class Food extends Component {
                   )
                 )}
             </Row>
-            <Button ref={this.triggerModal}></Button>
-            <ModalForm></ModalForm>
+            <ModalForm trigger={this.modalTrigger}></ModalForm>
             <FooterBottom></FooterBottom>
         </div>
 
