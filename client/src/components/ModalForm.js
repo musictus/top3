@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import {Button, Modal, Row, Col, Input, Icon, Autocomplete} from 'react-materialize'
 import API from "../utils/API";
-import SearchYelp from "../components/SearchYelp";
-import SearchOnPage from "../components/SearchOnPage";
+// import SearchYelp from "../components/SearchYelp";
+// import SearchOnPage from "../components/SearchOnPage";
 
 class ModalForm extends Component {
 
@@ -29,31 +29,21 @@ class ModalForm extends Component {
         .catch(err => console.log(err));
       }
 
-    getValues = () => {
-        this.setState({})
-    }
-
-
     render() {
-
-        const margin = {
-            marginBottom: '1000px'
-        }
           
         const buttonStyle = {
             width: '200px',
             height: '40px',
             backgroundColor: '#ffb74d',
             // marginRight: '10px',
-            margin: '20px'
+            marginTop: '20px'
           }
-        // console.log("TTTT", this.props.trigger)
 
         return (
             <Row>
                 <Col s={3}></Col>
                 <Col s={6} className="center-align" >
-                <Modal header="Suggest Your Restaurant!" trigger={this.props.trigger()}>
+                <Modal header="Suggest Your Restaurant!" trigger={this.props.trigger()} id="modal">
             
                     <Row>
                         
@@ -79,7 +69,8 @@ class ModalForm extends Component {
                             s={12}
                             // icon="business"
                             label="Search Restaurant"
-                            value={this.props.yelpValue}
+                            value={this.props.value}
+                            onChange={this.props.handleYelpInputChange}
                             >
                         </Input>
 
@@ -87,7 +78,7 @@ class ModalForm extends Component {
                             type="submit" 
                             waves="light" 
                             style={buttonStyle} 
-                            onClick={this.handleInputChange}
+                            onClick={this.props.getYelpRestaurants}
                         >
                             Search
                             <Icon left>search</Icon>
@@ -100,9 +91,7 @@ class ModalForm extends Component {
             </Row>
 
         )
-
     }
-
 }
 
 export default ModalForm;

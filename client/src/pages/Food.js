@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import {Row, Col, Button} from "react-materialize"
 import API from "../utils/API";
+import YELP from "../utils/YELP";
 import SideNavigator from "../components/SideNavigator";
 import FoodCard from "../components/FoodCard";
 import FooterBottom from "../components/FooterBottom";
 import SearchOnPage from "../components/SearchOnPage";
 import ModalForm from "../components/ModalForm";
-import YELP from "../utils/YELP";
+
+require('dotenv').config()
+const yelp = require('yelp-fusion');
+const apiKey = process.env.YKEY;
 
 const savedValue = sessionStorage.getItem("food_name");
 const savedValueShort = sessionStorage.getItem("food_name_short");
@@ -16,7 +20,8 @@ class Food extends Component {
   state = {
     restaurants: [],
     food: "",
-    food_short: ""
+    food_short: "",
+    yelpRestaurantValue: ""
     // value_short: ""
   };
   
@@ -32,7 +37,7 @@ class Food extends Component {
         let restaurantArray = [];
         let apiResults = res.data;
         let restaurantResults = apiResults.restaurants;
-        console.log("initial restaurants:", restaurantResults)
+        // console.log("initial restaurants:", restaurantResults)
         // this loop goes through the restaurants array, grabs the editor picks, and sort them by
         restaurantResults.forEach( restaurants => {
           if (restaurants.editor_pick === true) {
@@ -49,13 +54,44 @@ class Food extends Component {
       }).catch(err => console.log(err));
     }
   
-  getYelpRestaurants = () => {
-    YELP.loadYelpData()
-      .then(res => {
+  //-------MODAL------------------------------------------------------------
+  handleYelpInputChange = event => {
+    // event.preventDefault();
+    this.setState({ yelpRestaurantValue: event.target.value });
+    // this.getYelpRestaurants()
+  };
 
+  // this.state.yelpRestaurantValue
+  getYelpRestaurants = () => {
+    YELP.loadYelpData(this.state.yelpRestaurantValue)
+      .then(res => {
+        console.log("yelpres", res.data)
       })
+    // this.getYelp(this.state.yelpRestaurantValue)
   }
 
+  // getYelp = (restaurant) => {
+  //   const searchRequest = {
+  //     term:restaurant,
+  //     location: 'new york, ny',
+  //     limit: 10
+  //   };
+    
+  //   const client = yelp.client(apiKey);
+    
+  //   client.search(searchRequest).then(response => {
+  //     // const firstResult = response.jsonBody.businesses[0];
+  //     // const prettyJson = JSON.stringify(firstResult, null, 4);
+  //     // console.log(prettyJson);
+  //     const allResult = response.jsonBody.businesses;
+  //     const prettyJson = JSON.stringify(allResult, null, 4);
+  //     console.log(prettyJson);
+  //   }).catch(e => {
+  //     console.log(e);
+  //   });
+  // }
+  //-------MODAL------------------------------------------------------------
+  
   updateVotesFunction = (yelpid) => {
     API.updateVote(this.state.food_short, yelpid)
       .then(res => {
@@ -79,7 +115,7 @@ class Food extends Component {
     this.setState({
         restaurants: restaurantToUpdate
     })
-    console.log("AFTER", this.state.restaurants)
+    // console.log("AFTER", this.state.restaurants)
   };
   
 
@@ -97,8 +133,9 @@ class Food extends Component {
   render() {
     // console.log("param:", this.props.match.params.food_name_short)
     // console.log("VLUEEEE:", this.state.food)
-    console.log("TEST Array:", this.state.restaurants)
-    console.log("FOOD", this.state.food)
+    // console.log("TEST Array:", this.state.restaurants)
+    // console.log("FOOD", this.state.food)
+    console.log("yelp", this.state.yelpRestaurantValue)
 
     const h1Style = {
       fontFamily: 'Fredericka the Great',
@@ -154,7 +191,14 @@ class Food extends Component {
                 )}
             </Row>
 
-            <ModalForm trigger={this.modalTrigger}></ModalForm>
+            <ModalForm
+              trigger={this.modalTrigger}
+              value={this.value}
+              handleYelpInputChange={this.handleYelpInputChange}
+              getYelpRestaurants={this.getYelpRestaurants}
+              >
+            </ModalForm>
+            
             <FooterBottom></FooterBottom>
         </div>
 
