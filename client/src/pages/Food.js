@@ -6,9 +6,10 @@ import FoodCard from "../components/FoodCard";
 import FooterBottom from "../components/FooterBottom";
 import SearchOnPage from "../components/SearchOnPage";
 import ModalForm from "../components/ModalForm";
+import YELP from "../utils/YELP";
 
-// const savedValue = sessionStorage.getItem("food_name");
-// const savedValueShort = sessionStorage.getItem("food_name_short");
+const savedValue = sessionStorage.getItem("food_name");
+const savedValueShort = sessionStorage.getItem("food_name_short");
 
 class Food extends Component {
 
@@ -18,36 +19,20 @@ class Food extends Component {
     food_short: ""
     // value_short: ""
   };
-
-  // trigger = React.createRef();
   
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
     this.getRestaurants();
-    // console.log("modaltrigger", this.triggerModal.current)
   }
-
-  modalTrigger = () => {
-    return <Button></Button>
-  }
-
-  // loadFoods = () => {
-  //   API.getFoods(this.props.match.params.food_name_short)
-  //     .then(res => this.setState({ food: res.data }))
-  //     .catch(err => console.log(err));
-  // }
 
   getRestaurants = () => {
-
     API.getFoodByName(this.props.match.params.food_name_short)
       .then(res => {
-
         let restaurantArray = [];
         let apiResults = res.data;
         let restaurantResults = apiResults.restaurants;
         console.log("initial restaurants:", restaurantResults)
-
         // this loop goes through the restaurants array, grabs the editor picks, and sort them by
         restaurantResults.forEach( restaurants => {
           if (restaurants.editor_pick === true) {
@@ -62,11 +47,16 @@ class Food extends Component {
         // console.log("TEST ARRAY:", restaurantArray)
         })
       }).catch(err => console.log(err));
-  
     }
+  
+  getYelpRestaurants = () => {
+    YELP.loadYelpData()
+      .then(res => {
+
+      })
+  }
 
   updateVotesFunction = (yelpid) => {
-
     API.updateVote(this.state.food_short, yelpid)
       .then(res => {
         console.log("res", res)
@@ -75,14 +65,10 @@ class Food extends Component {
         // window.location = `${this.state.food_short}`
         // }
       })
-
   }
-      // handleIncrement increments this.state.count by 1
+  
+  // handleIncrement increments this.state.count by 1
   handleIncrement = (e) => {
-    // console.log("E", e)
-    // console.log("etarget", e.target.dataset.votes)
-    // console.log("etargetyelpid", e.target.dataset.yelpid)
-    // console.log("erestaurant", this.state.restaurants)
     let restaurantToUpdate = this.state.restaurants.map(data => { 
       if (e.target.dataset.yelpid === data.yelpid) {
         // restaurant.votes = parseInt(e.target.dataset.votes) + 1
@@ -97,11 +83,22 @@ class Food extends Component {
   };
   
 
+  modalTrigger = () => {
+    const buttonStyle = {
+      width: '300px',
+      height: '50px',
+      backgroundColor: '#ffb74d',
+      margin: '10px'
+    }
+    return <Button style={buttonStyle}>Suggest Your Restaurant</Button>
+  }
+
+
   render() {
     // console.log("param:", this.props.match.params.food_name_short)
+    // console.log("VLUEEEE:", this.state.food)
     console.log("TEST Array:", this.state.restaurants)
     console.log("FOOD", this.state.food)
-    // console.log("VLUEEEE:", this.state.food)
 
     const h1Style = {
       fontFamily: 'Fredericka the Great',
@@ -117,6 +114,7 @@ class Food extends Component {
       marginTop: '7%'
     }
 
+
     return (
 
        <div>
@@ -124,9 +122,11 @@ class Food extends Component {
               <Col m={2} s={12} className='grid-example'>
                 <SideNavigator></SideNavigator>
               </Col>
+
               <Col m={6} s={5} className='grid-example'>
                 <h1 style={h1Style}>{this.state.food}</h1>
               </Col>
+              
               <Col m={4} s={7}>
                 <div style={searchOnPageStyle}>
                 <SearchOnPage></SearchOnPage>
@@ -153,6 +153,7 @@ class Food extends Component {
                   )
                 )}
             </Row>
+
             <ModalForm trigger={this.modalTrigger}></ModalForm>
             <FooterBottom></FooterBottom>
         </div>

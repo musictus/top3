@@ -1,9 +1,14 @@
 import React from "react";
 import {SideNav, SideNavItem, Button} from 'react-materialize'
 import "./style.css";
+import ModalForm from "../../components/ModalForm";
 
+const modalTrigger = () => {
+    return <span align="left">Suggest Your Restaurant!</span>
+}
 
 function SideNavigator(props) {
+    
     return (
 
         <SideNav
@@ -19,8 +24,12 @@ function SideNavigator(props) {
                 }}
             />
             <SideNavItem href='/' icon='search'>Search Food</SideNavItem>
-            <SideNavItem divider />
-            <SideNavItem waves icon='fastfood'>Suggest Your Restaurant!</SideNavItem>
+            
+            {/* <SideNavItem divider />
+            <SideNavItem waves icon='fastfood'>
+                <ModalForm trigger={modalTrigger}></ModalForm>
+            </SideNavItem> */}
+
             <SideNavItem divider />
             <SideNavItem href='/ourstory' icon='face'>Our Story</SideNavItem>
             <SideNavItem href='/ourstory' icon='mail_outline'>Contact Us</SideNavItem>

@@ -22,11 +22,11 @@ function Search(props) {
           onAutocomplete={(value) => { 
             let newValue = value.replace(/\s/g, '').toLowerCase()
             window.location = `/${newValue}`
-            let sessionValue = value
-            let sessionValueShort = newValue
+            // let sessionValue = value
+            // let sessionValueShort = newValue
             // sessionStorage.clear();
-            sessionStorage.setItem("food_name", sessionValue);
-            sessionStorage.setItem("food_name_short", sessionValueShort);
+            // sessionStorage.setItem("food_name", sessionValue);
+            // sessionStorage.setItem("food_name_short", sessionValueShort);
             // window.location = `/food`
             // look into props.history.push
           }}
